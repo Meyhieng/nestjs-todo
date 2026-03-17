@@ -1,17 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-@Entity()
+export type ReceiptDocument = Receipt & Document;
+
+@Schema({ timestamps: true })
 export class Receipt {
-  @PrimaryGeneratedColumn('uuid')
-  receiptId: string;
-
-  @Column()
-  name: string;
-
-  @Column('float')
-  price: number;
-
-  @Column()
+  @Prop({ required: true })
   issuedAt: Date;
 
+  @Prop({ required: true })
+  name: string;
+
+  @Prop({ required: true, min: 0 })
+  price: number;
 }
+
+export const ReceiptSchema = SchemaFactory.createForClass(Receipt);
