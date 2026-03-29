@@ -1,15 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Order, OrderDocument } from 'src/database/entities/order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectModel(Order.name)
     private readonly orderModel: Model<OrderDocument>,
+    @Inject(forwardRef(() => NotificationsService))
+    private readonly notifications: NotificationsService,
   ) {}
 
   async findAll() {
@@ -28,7 +31,13 @@ export class OrdersService {
       price: dto.price,
       issuedAt: new Date(dto.issuedAt),
     });
-    return order.save();
+    const saved = await order.save();
+    this.notifications.notify('order_created', {
+      name: saved.name,
+      price: saved.price,
+    });
+
+    return saved;
   }
 
   async update(id: string, dto: UpdateOrderDto) {
@@ -42,6 +51,12 @@ export class OrdersService {
       { new: true },
     );
     if (!order) throw new NotFoundException('Order not found');
+
+    this.notifications.notify('order_updated', {
+      name: order.name,
+      price: order.price,
+    });
+
     return order;
   }
 
