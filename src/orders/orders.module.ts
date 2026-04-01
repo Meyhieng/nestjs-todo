@@ -1,4 +1,4 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Order, OrderSchema } from 'src/database/entities/order.entity';
 import { OrdersController } from './orders.controller';
@@ -8,7 +8,7 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
-    forwardRef(() => NotificationsModule),  // 👈 forwardRef here!
+    NotificationsModule,
   ],
   controllers: [OrdersController],
   providers: [OrdersService],

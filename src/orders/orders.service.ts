@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Order, OrderDocument } from 'src/database/entities/order.entity';
@@ -11,7 +11,6 @@ export class OrdersService {
   constructor(
     @InjectModel(Order.name)
     private readonly orderModel: Model<OrderDocument>,
-    @Inject(forwardRef(() => NotificationsService))
     private readonly notifications: NotificationsService,
   ) {}
 
@@ -32,6 +31,7 @@ export class OrdersService {
       issuedAt: new Date(dto.issuedAt),
     });
     const saved = await order.save();
+
     this.notifications.notify('order_created', {
       name: saved.name,
       price: saved.price,

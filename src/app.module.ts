@@ -10,10 +10,10 @@ import { CoreModule } from './core/core.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot('mongodb://localhost:27017/tp2_db'),
+    CoreModule,
+    NotificationsModule,
     ReceiptsModule,
     OrdersModule,
-    NotificationsModule,
-    CoreModule,
   ],
 })
 export class AppModule {}
