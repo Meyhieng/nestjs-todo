@@ -16,8 +16,7 @@ import { GraphqlModule } from './graphql/graphql.module';
     MongooseModule.forRoot('mongodb://localhost:27017/tp2_db'),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      // typePaths: [join(process.cwd(), 'src/graphql/schema/*.graphql')], // ← schema-first commented out
-      autoSchemaFile: join(process.cwd(), 'src/graphql/schema.gql'), // ← code-first
+      autoSchemaFile: join(process.cwd(), 'src/graphql/schema.gql'),
       playground: true,
     }),
     CoreModule,
