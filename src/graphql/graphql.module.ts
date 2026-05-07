@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
-import { ReceiptResolver } from './resolvers/receipt.resolver';
-import { OrderResolver } from './resolvers/order.resolver';
 import { ReceiptsModule } from '../receipts/receipts.module';
 import { OrdersModule } from '../orders/orders.module';
+import { ReceiptCodeFirstResolver } from './resolvers/receipt.codefirst.resolver';
+import { OrderCodeFirstResolver } from './resolvers/order.codefirst.resolver';
 
 @Module({
   imports: [ReceiptsModule, OrdersModule],
-  providers: [ReceiptResolver, OrderResolver],
+  providers: [
+    ReceiptCodeFirstResolver,
+    OrderCodeFirstResolver,
+  ],
 })
 export class GraphqlModule {}

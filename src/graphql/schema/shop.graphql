@@ -1,23 +1,22 @@
-type Receipt {
-  id: ID!
-  name: String!
-  price: Float!
-  issuedAt: String!
-}
-
 type Order {
   id: ID!
+  product: String!
+  quantity: Int!
+}
+
+type Receipt {
+  receiptId: ID!
+  issuedAt: String!
   name: String!
   price: Float!
-  issuedAt: String!
 }
 
 type Query {
-  receipts: [Receipt!]!
   orders: [Order!]!
+  receipts: [Receipt!]!
 }
 
 type Mutation {
+  createOrder(product: String!, quantity: Int!): Order!
   createReceipt(name: String!, price: Float!, issuedAt: String!): Receipt!
-  createOrder(name: String!, price: Float!, issuedAt: String!): Order!
 }

@@ -1,0 +1,40 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ReceiptType {
+  id: ID!
+  name: String!
+  price: Float!
+  issuedAt: String!
+}
+
+type OrderType {
+  id: ID!
+  name: String!
+  price: Float!
+  issuedAt: String!
+}
+
+type Query {
+  receipts: [ReceiptType!]!
+  orders: [OrderType!]!
+  ordersByMinPrice(minPrice: Float!): [OrderType!]!
+}
+
+type Mutation {
+  createReceipt(input: CreateReceiptInput!): ReceiptType!
+  createOrder(input: CreateOrderInput!): OrderType!
+}
+
+input CreateReceiptInput {
+  name: String!
+  price: Float!
+  issuedAt: String!
+}
+
+input CreateOrderInput {
+  name: String!
+  price: Float!
+  issuedAt: String!
+}
