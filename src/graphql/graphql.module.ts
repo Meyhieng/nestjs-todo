@@ -6,9 +6,6 @@ import { OrderCodeFirstResolver } from './resolvers/order.codefirst.resolver';
 
 @Module({
   imports: [ReceiptsModule, OrdersModule],
-  providers: [
-    ReceiptCodeFirstResolver,
-    OrderCodeFirstResolver,
-  ],
+  providers: [ReceiptCodeFirstResolver, OrderCodeFirstResolver],
 })
 export class GraphqlModule {}

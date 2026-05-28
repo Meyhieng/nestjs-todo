@@ -1,11 +1,12 @@
 type Order {
   id: ID!
-  product: String!
-  quantity: Int!
+  name: String!
+  price: Float!
+  issuedAt: String!
 }
 
 type Receipt {
-  receiptId: ID!
+  id: ID!
   issuedAt: String!
   name: String!
   price: Float!
@@ -17,6 +18,6 @@ type Query {
 }
 
 type Mutation {
-  createOrder(product: String!, quantity: Int!): Order!
+  addOrder(name: String!, price: Float!, issuedAt: String!): Order!
   createReceipt(name: String!, price: Float!, issuedAt: String!): Receipt!
 }

@@ -1,23 +1,21 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { ReceiptType } from '../types/receipt.type';
-import { CreateReceiptInput } from '../inputs/create-receipt.input';
+import { Resolver, Query, Mutation, Args, Float } from '@nestjs/graphql';
 import { ReceiptsService } from 'src/receipts/receipts.service';
 
-@Resolver(() => ReceiptType)
+@Resolver()
 export class ReceiptCodeFirstResolver {
   constructor(private readonly receiptsService: ReceiptsService) {}
 
-  @Query(() => [ReceiptType])
+  @Query('receipts')
   receipts() {
     return this.receiptsService.findAll();
   }
 
-  @Mutation(() => ReceiptType)
-  createReceipt(@Args('input') input: CreateReceiptInput) {
-    return this.receiptsService.create({
-      name: input.name,
-      price: input.price,
-      issuedAt: input.issuedAt,
-    });
+  @Mutation('createReceipt')
+  createReceipt(
+    @Args('name') name: string,
+    @Args('price', { type: () => Float }) price: number,
+    @Args('issuedAt') issuedAt: string,
+  ) {
+    return this.receiptsService.create({ name, price, issuedAt });
   }
 }

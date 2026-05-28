@@ -1,3 +1,7 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
 type ReceiptType {
   id: ID!
   name: String!
@@ -19,17 +23,11 @@ type Query {
 }
 
 type Mutation {
-  createReceipt(input: CreateReceiptInput!): ReceiptType!
-  createOrder(input: CreateOrderInput!): OrderType!
+  Receipt(input: CreateReceiptInput!): ReceiptType!
+  addOrder(name: String!, price: Float!, issuedAt: String!): OrderType!
 }
 
 input CreateReceiptInput {
-  name: String!
-  price: Float!
-  issuedAt: String!
-}
-
-input CreateOrderInput {
   name: String!
   price: Float!
   issuedAt: String!
